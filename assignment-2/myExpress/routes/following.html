@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link rel="stylesheet" type="text/css" href="/home/krishna/myExpress/public/stylesheets/style.css" />
+
+
+
+</head>
+
+<body>
+    <div class="container" id="ab">
+        <div class="column" id="temp">
+            <div style="margin-left: 20px;">
+                <p><b>Elon Musk</b><br>@elonmusk</p>
+            </div>
+            <hr>
+            <div style="align-self: center;">
+                Following
+            </div>
+            <!-- <hr>
+            <div class="profilebox">
+                <img src="spacex.jpg" alt="" srcset="" style="height: 30px; width: auto;">
+                <div class="middleColInProfilebox">
+                    <span>
+                        SpaceX <br>
+                        @SpaceX
+                    </span>
+                    <p>SpaceX designs, manufactures and launches the wo</p>
+                </div>
+                <button
+                    style="background-color: black; border-radius: 20px; color: white; padding: 5px;">Follow</button>
+            </div> -->
+
+
+        </div>
+
+    </div>
+
+    
+
+    <script>
+        
+   
+        //var XMLHttpRequest = new XMLHttpRequest();
+
+        function loadJSON(path, success, error) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        success(JSON.parse(xhr.responseText));
+                    }
+                    else {
+                        error;
+                    }
+                }
+            };
+            xhr.open('GET', path, true);
+            xhr.send();
+        }
+       // var XMLHttpRequest = import("xmlhttprequest").XMLHttpRequest;
+        loadJSON("http://localhost:3000/following", myData, 'jsonp');
+
+        function myData(Data) {
+            let size = Object.keys(Data["users"]).length;
+            console.log(size);
+            let users = Data["users"];
+            for (i = 0; i < size; i++) {
+                let next = '<hr><div class="profilebox"><img src="spacex.jpg" alt="" srcset="" style="height: 30px; width: auto;"><div class="middleColInProfilebox"><span>';
+                //console.log(users[i]["name"])
+
+                next += users[i]["name"] + '<br>' + users[i]["handle"] + '</span><p>' + users[i]["bio"] +'</p></div><button style="background-color: black; border-radius: 20px; color: white; padding: 5px;">Follow</button>'
+                document.getElementById("temp").innerHTML += next;
+            }
+        }
+    
+
+    </script>
+
+</body>
+
+</html>
